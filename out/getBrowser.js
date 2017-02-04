@@ -147,10 +147,11 @@ function getIfs(reader) {
     while (true) {
         var num = reader.readUInt8();
         if (num == 0) break;
-        num = num - 128
-        final.push(num.toString(2));
-    }
-    return final.join("").split("");
+       var length = 7
+   while(length--)
+   final.push((num >> length ) & 1);
+}
+return final;
         }
 var reader = new FastBuffers.reader(buf);
 var data1;

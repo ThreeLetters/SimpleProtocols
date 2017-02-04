@@ -148,7 +148,7 @@ function setIfs(writer,array) {
     var i,j,temparray,chunk = 7;
 for (i=0,j=array.length; i<j; i+=chunk) {
     temparray = array.slice(i,i+chunk);
-    writer.writeUInt8(parseInt("1" + temparray.join(""),2));
+while (temparray.length < 7) temparray.push(0) n    writer.writeUInt8(parseInt("1" + temparray.join(""),2));
 }
     writer.writeUInt8(0);
 }
