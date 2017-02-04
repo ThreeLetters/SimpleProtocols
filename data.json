@@ -1,0 +1,25 @@
+[
+    {
+        if: "obj.type == 0",
+        then: {
+            hello: "string"
+        },
+        else: {
+            if: "obj.type == 1",
+            then: {
+                this: "int -1 5"
+            },
+            else: {
+                if: "obj.type == 2",
+                then: {
+                    is: "string 16"
+                },
+                else: {
+                    atest: "int 500 600"
+                }
+            },
+
+        }
+    }
+
+]
