@@ -35,7 +35,7 @@ You can have dynamic arrays by doing
 ]
 ```
 
-#### Objects
+### Objects
 You can have objects by doing
 ```
 {
@@ -46,7 +46,7 @@ aobject: "int 0 10000"
 }
 ```
 
-#### Conditionals
+### Conditionals
 You can also have conditional statements
 ```
 {
