@@ -162,23 +162,24 @@ for (var i1 = 0; i1 < len1; i1 ++) {
 if (ifs[ifid++] == 1) {
 var data2 = {};
 data2.hello=reader.readString8();
+data1.push(data2);
 } else {
 if (ifs[ifid++] == 1) {
 var data2 = {};
 data2.this=reader.readUInt8()-1;
+data1.push(data2);
 } else {
 if (ifs[ifid++] == 1) {
 var data2 = {};
 data2.is=reader.readString16();
+data1.push(data2);
 } else {
 var data2 = {};
 data2.atest=reader.readUInt8()+500;
-}
 data1.push(data2);
 }
-data1.push(data2);
 }
-data1.push(data2);
+}
 
 }
 return data1;}
