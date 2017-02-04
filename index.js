@@ -15,3 +15,16 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
+var parser = require('./lib/parser.js')
+var fs = require('fs');
+console.log("Reading data.json...")
+var object = eval(fs.readFileSync("data.json", "utf8"))
+console.log("Generating code...")
+var results = parser(object);
+console.log("Writing files...")
+fs.writeFileSync(__dirname + "/out/setNodeJS.js", results.set);
+fs.writeFileSync(__dirname + "/out/getNodeJS.js", results.get);
+fs.writeFileSync(__dirname + "/out/setBrowser.js", results.setb);
+fs.writeFileSync(__dirname + "/out/getBrowser.js", results.getb);
+
+console.log("Get/Set code generated! Files located in ./out/")
