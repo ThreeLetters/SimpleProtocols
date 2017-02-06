@@ -158,8 +158,8 @@ var data1;
 var ifid = 0;
 var ifs = getIfs(reader);
 var data1 = {};
-data1.this=reader.readUInt8()-39;
-data1.atest=reader.readUInt16BE()+48955;
-data1.is=reader.readString16();
+data1.this=reader.readUInt8()-89;
 data1.hello=reader.readString8();
+data1.is=reader.readString16();
+data1.atest=reader.readUInt16BE()+44760;
 return data1;}

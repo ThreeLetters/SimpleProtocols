@@ -152,13 +152,13 @@ while (temparray.length < 7) temparray.push(0) n    writer.writeUInt8(parseInt("
 }
 var byteLen = 0;
 var ifs = [];
-byteLen += 2 + data1.is.length * 2;
 byteLen += 1 + data1.hello.length * 1;
+byteLen += 2 + data1.is.length * 2;
 byteLen += Math.ceil(ifs.length / 7) + 1
 var writer = new FastBuffers.writer(byteLen);
 setIfs(writer,ifs);
-writer.writeUInt8(data1.this+39);
-writer.writeUInt16BE(data1.atest-48955);
-writer.writeString16(data1.is);
+writer.writeUInt8(data1.this+89);
 writer.writeString8(data1.hello);
+writer.writeString16(data1.is);
+writer.writeUInt16BE(data1.atest-44760);
 return writer.toBuffer();}
