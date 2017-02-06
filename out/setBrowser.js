@@ -157,8 +157,8 @@ byteLen += 1 + data1.hello.length * 1;
 byteLen += Math.ceil(ifs.length / 7) + 1
 var writer = new FastBuffers.writer(byteLen);
 setIfs(writer,ifs);
+writer.writeUInt8(data1.this+39);
+writer.writeUInt16BE(data1.atest-48955);
 writer.writeString16(data1.is);
 writer.writeString8(data1.hello);
-writer.writeUInt8(data1.this+62);
-writer.writeUInt16BE(data1.atest-17029);
 return writer.toBuffer();}

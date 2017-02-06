@@ -20,15 +20,11 @@ var fs = require('fs');
 console.log("Reading data.json...")
 eval("var object = " +
     fs.readFileSync("data.json", "utf8"))
+eval("var options = " +
+    fs.readFileSync("options.json", "utf8"))
 console.log("Generating code...")
 
-var options = {
-    shuffleObjects: true,
-    scrambleConditionals: true,
-    scrambleNumbers: true
 
-
-}
 
 
 var results = parser(object, options);
