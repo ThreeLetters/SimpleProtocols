@@ -2,12 +2,12 @@
 Serialize your data in binary!
 
 ## Purpose
-Generates code for binary serialisation. Like google's protocol buffers, but simpler and easier.
+Generates code for binary serialisation. Like google's protocol buffers, but simpler, easier and more secure.
 
 ## Usage
 > node index.js
 
-1. Edit the data.json file to specify data types
+1. Edit the data.json file to specify data types. (You can also edit options.json)
 2. Run `node index.js`
 3. Generated code located at /out/
 
@@ -55,3 +55,13 @@ then: "something",
 else: "anotherthing" 
 }
 ```
+
+### Security Features
+There are some security features. Note that none of these features impact preformance.
+
+1. shuffleObjects - Shuffle order in objects. Default: true
+2. scrambleConditionals - Scramble conditional statements. Default: true
+3. scrambleNumbers - Scramble numbers. Default: true
+
+## Note:
+The json files in this project are not actually json. This is to simplify its syntax. `eval()` is used to evaluate the files.
