@@ -1,25 +1,18 @@
 [
     {
-        if: "obj.type == 0",
-        then: {
-            hello: "string"
-        },
-        else: {
-            if: "obj.type == 1",
+    hello: "string",
+    world: "int -100 100",
+    lol: {
+        something: "string 16",
+        lolol: {
+            if: "obj.foo == 'lol'",
             then: {
-                this: "int -1 5"
+                foo: "string",
+                bar: "int 0 0"
             },
-            else: {
-                if: "obj.type == 2",
-                then: {
-                    is: "string 16"
-                },
-                else: {
-                    atest: "int 500 600"
-                }
-            },
-
+            else: "int -2000 0"
         }
     }
+}
 
 ]

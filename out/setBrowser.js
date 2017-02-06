@@ -155,45 +155,37 @@ var ifs = [];
 byteLen += 2
 for (var i1 = 0; i1 < data1.length; i1 ++) {
 var data2 = data1[i1];
-var obj=data2;if (obj.type == 0) {
-ifs.push(1)
 byteLen += 1 + data2.hello.length * 1;
-} else {
-ifs.push(0)
-var obj=data2;if (obj.type == 1) {
+var data3 = data2.lol;
+byteLen += 2 + data3.something.length * 2;
+var obj=data4;if (obj.foo == 'lol') {
 ifs.push(1)
+var data4 = data3.lolol;
+byteLen += 1 + data4.foo.length * 1;
 byteLen += 1;
 } else {
 ifs.push(0)
-var obj=data2;if (obj.type == 2) {
-ifs.push(1)
-byteLen += 2 + data2.is.length * 2;
-} else {
-ifs.push(0)
+byteLen += 2;
+}
 byteLen += 1;
-}
-}
-}
 }
 byteLen += Math.ceil(ifs.length / 7) + 1
 var writer = new FastBuffers.writer(byteLen);
 setIfs(writer,ifs);
-var len2 = data1.length
-writer.writeUInt16BE(len2)
-for (var i2 = 0; i2 < len2; i2 ++) {
-var data2 = data1[i2];
-var obj=data2;if (obj.type == 0) {
+var len1 = data1.length
+writer.writeUInt16BE(len1)
+for (var i1 = 0; i1 < len1; i1 ++) {
+var data2 = data1[i1];
 writer.writeString8(data2.hello);
+writer.writeUInt8(data2.world+100);
+var data3 = data2.lol;
+writer.writeString16(data3.something);
+var obj=data4;if (obj.foo == 'lol') {
+var data4 = data3.lolol;
+writer.writeString8(data4.foo);
+writer.writeUInt8(data4.bar);
 } else {
-var obj=data2;if (obj.type == 1) {
-writer.writeUInt8(data2.this+1);
-} else {
-var obj=data2;if (obj.type == 2) {
-writer.writeString16(data2.is);
-} else {
-writer.writeUInt8(data2.atest-500);
-}
-}
+writer.writeUInt16BE(data3.lolol+2000);
 }
 }
 return writer.toBuffer();}
