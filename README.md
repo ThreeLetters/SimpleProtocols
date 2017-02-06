@@ -62,3 +62,6 @@ There are some security features. Note that none of these features impact prefor
 1. shuffleObjects - Shuffle order in objects. Default: true
 2. scrambleConditionals - Scramble conditional statements. Default: true
 3. scrambleNumbers - Scramble numbers. Default: true
+
+# Note:
+The json files in this project are not actually json. This is to simplify its syntax. `eval()` is used to evaluate the files.
