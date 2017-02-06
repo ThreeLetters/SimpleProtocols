@@ -57,11 +57,12 @@ else: "anotherthing"
 ```
 
 ### Security Features
-There are some security features. Note that none of these features impact preformance.
+There are some security features. Note that none of these features impact preformance except for encodeStrings.
 
 1. shuffleObjects - Shuffle order in objects. Default: true
 2. scrambleConditionals - Scramble conditional statements. Default: true
 3. scrambleNumbers - Scramble numbers. Default: true
+4. encodeStrings - Encode strings using rc4 encryption. Default: false
 
 ## Note:
 The json files in this project are not actually json. This is to simplify its syntax. `eval()` is used to evaluate the files.
