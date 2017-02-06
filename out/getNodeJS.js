@@ -159,23 +159,9 @@ var reader = new FastBuffers.reader(buf);
 var data1;
 var ifid = 0;
 var ifs = getIfs(reader);
-var len1 = reader.readUInt16BE();
-var data1 = [];
-for (var i1 = 0; i1 < len1; i1 ++) {
-var data2 = {};
-data2.hello=reader.readString8();
-data2.world=reader.readUInt8()-100;
-var data3 = {};
-data3.something=reader.readString16();
-if (ifs[ifid++] == 1) {
-var data4 = {};
-data4.foo=reader.readString8();
-data4.bar=reader.readUInt8();
-data3.lolol=data4;
-} else {
-data3.lolol=reader.readUInt16BE()-2000;
-}
-data2.lol=data3;
-data1.push(data2);
-}
+var data1 = {};
+data1.is=reader.readString16();
+data1.hello=reader.readString8();
+data1.this=reader.readUInt8()-62;
+data1.atest=reader.readUInt16BE()+17029;
 return data1;}

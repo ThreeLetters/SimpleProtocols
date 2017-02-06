@@ -152,40 +152,13 @@ while (temparray.length < 7) temparray.push(0) n    writer.writeUInt8(parseInt("
 }
 var byteLen = 0;
 var ifs = [];
-byteLen += 2
-for (var i1 = 0; i1 < data1.length; i1 ++) {
-var data2 = data1[i1];
-byteLen += 1 + data2.hello.length * 1;
-var data3 = data2.lol;
-byteLen += 2 + data3.something.length * 2;
-var obj=data4;if (obj.foo == 'lol') {
-ifs.push(1)
-var data4 = data3.lolol;
-byteLen += 1 + data4.foo.length * 1;
-byteLen += 1;
-} else {
-ifs.push(0)
-byteLen += 2;
-}
-byteLen += 1;
-}
+byteLen += 2 + data1.is.length * 2;
+byteLen += 1 + data1.hello.length * 1;
 byteLen += Math.ceil(ifs.length / 7) + 1
 var writer = new FastBuffers.writer(byteLen);
 setIfs(writer,ifs);
-var len1 = data1.length
-writer.writeUInt16BE(len1)
-for (var i1 = 0; i1 < len1; i1 ++) {
-var data2 = data1[i1];
-writer.writeString8(data2.hello);
-writer.writeUInt8(data2.world+100);
-var data3 = data2.lol;
-writer.writeString16(data3.something);
-var obj=data4;if (obj.foo == 'lol') {
-var data4 = data3.lolol;
-writer.writeString8(data4.foo);
-writer.writeUInt8(data4.bar);
-} else {
-writer.writeUInt16BE(data3.lolol+2000);
-}
-}
+writer.writeString16(data1.is);
+writer.writeString8(data1.hello);
+writer.writeUInt8(data1.this+62);
+writer.writeUInt16BE(data1.atest-17029);
 return writer.toBuffer();}

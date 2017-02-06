@@ -1,18 +1,6 @@
-[
-    {
+{
     hello: "string",
-    world: "int -100 100",
-    lol: {
-        something: "string 16",
-        lolol: {
-            if: "obj.foo == 'lol'",
-            then: {
-                foo: "string",
-                bar: "int 0 0"
-            },
-            else: "int -2000 0"
-        }
-    }
+    this: "int -100 50",
+    is: "string 16",
+    atest: "int 0 1000"
 }
-
-]

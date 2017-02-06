@@ -18,9 +18,20 @@
 var parser = require('./lib/parser.js')
 var fs = require('fs');
 console.log("Reading data.json...")
-var object = eval(fs.readFileSync("data.json", "utf8"))
+eval("var object = " +
+    fs.readFileSync("data.json", "utf8"))
 console.log("Generating code...")
-var results = parser(object);
+
+var options = {
+    shuffleObjects: true,
+    scrambleConditionals: true,
+    scrambleNumbers: true
+
+
+}
+
+
+var results = parser(object, options);
 console.log("Writing files...")
 fs.writeFileSync(__dirname + "/out/setNodeJS.js", results.set);
 fs.writeFileSync(__dirname + "/out/getNodeJS.js", results.get);
