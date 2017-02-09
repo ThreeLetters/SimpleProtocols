@@ -142,24 +142,13 @@ BinWriter.prototype.toBuffer = function () {
 }
 FastBuffers.reader = BinReader;
 FastBuffers.writer = BinWriter;
-function getIfs(reader) {
-    var final = [];
-    while (true) {
-        var num = reader.readUInt8();
-        if (num == 0) break;
-       var length = 7
-   while(length--)
-   final.push((num >> length ) & 1);
-}
-return final;
-        }
+
 var reader = new FastBuffers.reader(buf);
 var data1;
-var ifid = 0;
-var ifs = getIfs(reader);
+
 var data1 = {};
-data1.this=reader.readUInt8()-89;
 data1.hello=reader.readString8();
+data1.this=reader.readUInt8()-42;
+data1.atest=reader.readUInt16BE()+56152;
 data1.is=reader.readString16();
-data1.atest=reader.readUInt16BE()+44760;
 return data1;}

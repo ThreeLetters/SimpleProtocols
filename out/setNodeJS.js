@@ -144,23 +144,14 @@ function set(data1) {var FastBuffers = {
         }
     }
 }
-function setIfs(writer,array) {
-    var i,j,temparray,chunk = 7;
-for (i=0,j=array.length; i<j; i+=chunk) {
-    temparray = array.slice(i,i+chunk);
-while (temparray.length < 7) temparray.push(0) n    writer.writeUInt8(parseInt("1" + temparray.join(""),2));
-}
-    writer.writeUInt8(0);
-}
+
 var byteLen = 0;
-var ifs = [];
+
 byteLen += 1 + data1.hello.length * 1;
 byteLen += 2 + data1.is.length * 2;
-byteLen += Math.ceil(ifs.length / 7) + 1
 var writer = new FastBuffers.writer(byteLen);
-setIfs(writer,ifs);
-writer.writeUInt8(data1.this+89);
 writer.writeString8(data1.hello);
+writer.writeUInt8(data1.this+42);
+writer.writeUInt16BE(data1.atest-56152);
 writer.writeString16(data1.is);
-writer.writeUInt16BE(data1.atest-44760);
 return writer.toBuffer();}
