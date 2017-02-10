@@ -38,11 +38,12 @@ function Writer(size) {
 
 var byteLen = 0;
 
-byteLen += 1 + data1.hello.length * 1;
 byteLen += 2 + data1.is.length * 2;
+byteLen += 1 + data1.hello.length * 1;
+byteLen += 3;
 var writer = new Writer(byteLen);
-writer.writeUInt16BE(data1.atest-2201);
-writer.writeString8(data1.hello);
-writer.writeUInt8(data1.this+42);
+writer.writeUInt8(data1.this+84);
 writer.writeString16(data1.is);
+writer.writeString8(data1.hello);
+writer.writeUInt16BE(data1.atest-14987);
 return writer.toBuffer();}

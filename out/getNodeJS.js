@@ -48,8 +48,8 @@ var reader = new Reader(buf);
 var data1;
 
 var data1 = {};
-data1.atest=reader.readUInt16BE()+2201;
-data1.hello=reader.readString8();
-data1.this=reader.readUInt8()-42;
+data1.this=reader.readUInt8()-84;
 data1.is=reader.readString16();
+data1.hello=reader.readString8();
+data1.atest=reader.readUInt16BE()+14987;
 return data1;}
