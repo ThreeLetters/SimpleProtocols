@@ -59,18 +59,8 @@ Reader.prototype.readInt16BE = function () {\n\
     this.index += 2;\n\
     return data;\n\
 }\n\
-Reader.prototype.readInt16LE = function () {\n\
-    var data = this.buffer.getInt16(this.index, true);\n\
-    this.index += 2;\n\
-    return data;\n\
-}\n\
 Reader.prototype.readUInt16BE = function () {\n\
     var data = this.buffer.getUint16(this.index);\n\
-    this.index += 2;\n\
-    return data;\n\
-}\n\
-Reader.prototype.readUInt16LE = function () {\n\
-    var data = this.buffer.getUint16(this.index, true);\n\
     this.index += 2;\n\
     return data;\n\
 }\n\
@@ -79,22 +69,12 @@ Reader.prototype.readInt32BE = function () {\n\
     this.index += 4;\n\
     return data;\n\
 }\n\
-Reader.prototype.readInt32LE = function () {\n\
-    var data = this.buffer.getInt32(this.index, true);\n\
-    this.index += 4;\n\
-    return data;\n\
-}\n\
 Reader.prototype.readUInt32BE = function () {\n\
     var data = this.buffer.getUint32(this.index);\n\
     this.index += 4;\n\
     return data;\n\
-}\n\
-Reader.prototype.readUInt32LE = function () {\n\
-    var data = this.buffer.getUint32(this.index, true);\n\
-    this.index += 4;\n\
-    return data;\n\
 }',
-        writer: '\nfunction Writer(size) {\n\
+writer: '\nfunction Writer(size) {\n\
     this.buf = new ArrayBuffer(size);\n\
     this.buffer = new DataView(this.buf);\n\
     this.index = 0;\n\
@@ -124,16 +104,8 @@ Writer.prototype.writeInt16BE = function (n) {\n\
     this.buffer.setInt16(n, this.index)\n\
     this.index += 2;\n\
 }\n\
-Writer.prototype.writeInt16LE = function (n) {\n\
-    this.buffer.setInt16(n, this.index, true)\n\
-    this.index += 2;\n\
-}\n\
 Writer.prototype.writeInt32BE = function (n) {\n\
     this.buffer.setInt32(n, this.index)\n\
-    this.index += 4;\n\
-}\n\
-Writer.prototype.writeInt32LE = function (n) {\n\
-    this.buffer.setInt32(n, this.index, true)\n\
     this.index += 4;\n\
 }\n\
 Writer.prototype.writeUInt8 = function (n) {\n\
@@ -143,16 +115,8 @@ Writer.prototype.writeUInt16BE = function (n) {\n\
     this.buffer.setUint16(n, this.index)\n\
     this.index += 2;\n\
 }\n\
-Writer.prototype.writeUInt16LE = function (n) {\n\
-    this.buffer.setUint16(n, this.index, true)\n\
-    this.index += 2;\n\
-}\n\
 Writer.prototype.writeUInt32BE = function (n) {\n\
     this.buffer.setUint32(n, this.index)\n\
-    this.index += 4;\n\
-}\n\
-Writer.prototype.writeUInt32LE = function (n) {\n\
-    this.buffer.setUint32(n, this.index, true)\n\
     this.index += 4;\n\
 }\n\
 Writer.prototype.toBuffer = function () {\n\
