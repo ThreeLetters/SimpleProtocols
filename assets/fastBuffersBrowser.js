@@ -48,25 +48,12 @@ Reader.prototype.readString32 = function () {\n\
     }\n\
     return data;\n\
 }\n\
-Reader.prototype.readInt8 = function () {\n\
-    return this.buffer.getInt8(this.index++);\n\
-}\n\
 Reader.prototype.readUInt8 = function () {\n\
     return this.buffer.getUint8(this.index++);\n\
-}\n\
-Reader.prototype.readInt16BE = function () {\n\
-    var data = this.buffer.getInt16(this.index);\n\
-    this.index += 2;\n\
-    return data;\n\
 }\n\
 Reader.prototype.readUInt16BE = function () {\n\
     var data = this.buffer.getUint16(this.index);\n\
     this.index += 2;\n\
-    return data;\n\
-}\n\
-Reader.prototype.readInt32BE = function () {\n\
-    var data = this.buffer.getInt32(this.index);\n\
-    this.index += 4;\n\
     return data;\n\
 }\n\
 Reader.prototype.readUInt32BE = function () {\n\
@@ -96,17 +83,6 @@ Writer.prototype.writeString32 = function (string) {\n\
         this.writeUInt32BE(string.charCodeAt(i))\n\
     }\n\
     this.writeUInt32BE(0)\n\
-}\n\
-Writer.prototype.writeInt8 = function (n) {\n\
-    this.buffer.setInt8(n, this.index++)\n\
-}\n\
-Writer.prototype.writeInt16BE = function (n) {\n\
-    this.buffer.setInt16(n, this.index)\n\
-    this.index += 2;\n\
-}\n\
-Writer.prototype.writeInt32BE = function (n) {\n\
-    this.buffer.setInt32(n, this.index)\n\
-    this.index += 4;\n\
 }\n\
 Writer.prototype.writeUInt8 = function (n) {\n\
     this.buffer.setUint8(n, this.index++)\n\
