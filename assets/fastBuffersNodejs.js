@@ -40,17 +40,6 @@ module.exports = function (type) {
             }\n\
             this.writeUInt32BE(0)\n\
         }\n\
-         Writer.prototype.writeInt8 = function(n) {\n\
-            this.buffer.writeInt8(n, this.index++)\n\
-        }\n\
-         Writer.prototype.writeInt16BE = function(n) {\n\
-            this.buffer.writeInt16BE(n, this.index)\n\
-            this.index += 2;\n\
-        }\n\
-         Writer.prototype.writeInt32BE = function(n) {\n\
-            this.buffer.writeInt32BE(n, this.index)\n\
-            this.index += 4;\n\
-        }\n\
          Writer.prototype.writeUInt8 = function(n) {\n\
             this.buffer.writeUInt8(n, this.index++)\n\
         }\n\
@@ -97,25 +86,12 @@ module.exports = function (type) {
             }\n\
             return data;\n\
         }\n\
-        Reader.prototype.readInt8 = function() {\n\
-            return this.buffer.readInt8(this.index++);\n\
-        }\n\
         Reader.prototype.readUInt8 = function() {\n\
             return this.buffer.readUInt8(this.index++);\n\
-        }\n\
-        Reader.prototype.readInt16BE = function() {\n\
-            var data = this.buffer.readInt16BE(this.index);\n\
-            this.index += 2;\n\
-            return data;\n\
         }\n\
         Reader.prototype.readUInt16BE = function() {\n\
             var data = this.buffer.readUInt16BE(this.index);\n\
             this.index += 2;\n\
-            return data;\n\
-        }\n\
-        Reader.prototype.readInt32BE = function() {\n\
-            var data = this.buffer.readInt32BE(this.index);\n\
-            this.index += 4;\n\
             return data;\n\
         }\n\
         Reader.prototype.readUInt32BE = function() {\n\
