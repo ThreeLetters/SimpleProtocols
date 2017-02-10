@@ -1,1 +1,51 @@
-eval(function(p,a,c,k,e,r){e=function(c){return c.toString(36)};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'[5-9g-u]'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('6 set(d){6 c(a){5.k=l ArrayBuffer(a);5.h=l DataView(5.k);5.8=0}c.7.p=6(a){m(9 b=0;b<a.g;b++){5.i(a.n(b))}5.i(0)}c.7.q=6(a){m(9 b=0;b<a.g;b++){5.j(a.n(b))}5.j(0)}c.7.writeString32=6(a){m(9 b=0;b<a.g;b++){5.o(a.n(b))}5.o(0)}c.7.i=6(a){5.h.setUint8(a,5.8++)}c.7.j=6(a){5.h.setUint16(a,5.8)5.8+=2}c.7.o=6(a){5.h.setUint32(a,5.8)5.8+=4}c.7.r=6(){s 5.k}9 f=0;f+=2+d.t.g*2;f+=1+d.u.g*1;f+=3;9 e=l c(f);e.j(d.atest-28356);e.i(d.5+32);e.q(d.t);e.p(d.u);s e.r()}',[],31,'|||||this|function|prototype|index|var|||||||length|buffer|writeUInt8|writeUInt16BE|buf|new|for|charCodeAt|writeUInt32BE|writeString8|writeString16|toBuffer|return|is|hello'.split('|'),0,{}))
+function set(data1) {
+    function Writer(size) {
+        this.buf = new ArrayBuffer(size);
+        this.buffer = new DataView(this.buf);
+        this.index = 0;
+    }
+    Writer.prototype.writeString8 = function(string) {
+        for (var i = 0; i < string.length; i++) {
+            this.writeUInt8(string.charCodeAt(i))
+        }
+        this.writeUInt8(0)
+    }
+    Writer.prototype.writeString16 = function(string) {
+        for (var i = 0; i < string.length; i++) {
+            this.writeUInt16BE(string.charCodeAt(i))
+        }
+        this.writeUInt16BE(0)
+    }
+    Writer.prototype.writeString32 = function(string) {
+        for (var i = 0; i < string.length; i++) {
+            this.writeUInt32BE(string.charCodeAt(i))
+        }
+        this.writeUInt32BE(0)
+    }
+    Writer.prototype.writeUInt8 = function(n) {
+        this.buffer.setUint8(n, this.index++)
+    }
+    Writer.prototype.writeUInt16BE = function(n) {
+        this.buffer.setUint16(n, this.index)
+        this.index += 2;
+    }
+    Writer.prototype.writeUInt32BE = function(n) {
+        this.buffer.setUint32(n, this.index)
+        this.index += 4;
+    }
+    Writer.prototype.toBuffer = function() {
+        return this.buf;
+    }
+
+    var byteLen = 0;
+
+    byteLen += 1 + data1.hello.length * 1;
+    byteLen += 2 + data1.is.length * 2;
+    byteLen += 3;
+    var writer = new Writer(byteLen);
+    writer.writeUInt16BE(data1.atest - 14464);
+    writer.writeUInt8(data1.this + 91);
+    writer.writeString8(data1.hello);
+    writer.writeString16(data1.is);
+    return writer.toBuffer();
+}
