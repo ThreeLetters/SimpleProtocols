@@ -43,9 +43,9 @@ function set(data1) {
     byteLen += 2 + data1.is.length * 2;
     byteLen += 3;
     var writer = new Writer(byteLen);
-    writer.writeUInt16BE(data1.atest - 14464);
-    writer.writeUInt8(data1.this + 91);
     writer.writeString8(data1.hello);
     writer.writeString16(data1.is);
+    writer.writeUInt16BE(data1.atest + 32751);
+    writer.writeUInt8(data1.this + 29);
     return writer.toBuffer();
 }
