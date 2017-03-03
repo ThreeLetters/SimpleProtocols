@@ -85,14 +85,14 @@ Writer.prototype.writeString32 = function (string) {\n\
     this.writeUInt32BE(0)\n\
 }\n\
 Writer.prototype.writeUInt8 = function (n) {\n\
-    this.buffer.setUint8(n, this.index++)\n\
+    this.buffer.setUint8(this.index++,n)\n\
 }\n\
 Writer.prototype.writeUInt16BE = function (n) {\n\
-    this.buffer.setUint16(n, this.index)\n\
+    this.buffer.setUint16(this.index,n)\n\
     this.index += 2;\n\
 }\n\
 Writer.prototype.writeUInt32BE = function (n) {\n\
-    this.buffer.setUint32(n, this.index)\n\
+    this.buffer.setUint32(this.index,n)\n\
     this.index += 4;\n\
 }\n\
 Writer.prototype.toBuffer = function () {\n\
