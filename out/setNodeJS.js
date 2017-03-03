@@ -43,8 +43,8 @@ function set(data1) {
     byteLen += 3;
     var writer = new Writer(byteLen);
     writer.writeString8(data1.hello);
+    writer.writeUInt8(data1.this + 8);
+    writer.writeUInt16BE(data1.atest + 54767);
     writer.writeString16(data1.is);
-    writer.writeUInt16BE(data1.atest + 32751);
-    writer.writeUInt8(data1.this + 29);
     return writer.toBuffer();
 }

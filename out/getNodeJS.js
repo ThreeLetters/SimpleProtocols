@@ -49,8 +49,8 @@ function get(buf) {
 
     var data1 = {};
     data1.hello = reader.readString8();
+    data1.this = reader.readUInt8() - 8;
+    data1.atest = reader.readUInt16BE() - 54767;
     data1.is = reader.readString16();
-    data1.atest = reader.readUInt16BE() - 32751;
-    data1.this = reader.readUInt8() - 29;
     return data1;
 }

@@ -23,14 +23,14 @@ function set(data1) {
         this.writeUInt32BE(0)
     }
     Writer.prototype.writeUInt8 = function(n) {
-        this.buffer.setUint8(n, this.index++)
+        this.buffer.setUint8(this.index++, n)
     }
     Writer.prototype.writeUInt16BE = function(n) {
-        this.buffer.setUint16(n, this.index)
+        this.buffer.setUint16(this.index, n)
         this.index += 2;
     }
     Writer.prototype.writeUInt32BE = function(n) {
-        this.buffer.setUint32(n, this.index)
+        this.buffer.setUint32(this.index, n)
         this.index += 4;
     }
     Writer.prototype.toBuffer = function() {
@@ -44,8 +44,8 @@ function set(data1) {
     byteLen += 3;
     var writer = new Writer(byteLen);
     writer.writeString8(data1.hello);
+    writer.writeUInt8(data1.this + 8);
+    writer.writeUInt16BE(data1.atest + 54767);
     writer.writeString16(data1.is);
-    writer.writeUInt16BE(data1.atest + 32751);
-    writer.writeUInt8(data1.this + 29);
     return writer.toBuffer();
 }
