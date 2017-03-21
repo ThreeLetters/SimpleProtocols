@@ -2,7 +2,7 @@
 Serialize your data in binary!
 
 ## Purpose
-Generates code for binary serialisation. Like google's protocol buffers, but simpler, easier and more secure.
+Generates code for binary serialisation. Like google's protocol buffers, but simpler, easier and more secure. This allows you to send data very quickly over networks or pipes.
 
 ## Usage
 > node index.js
