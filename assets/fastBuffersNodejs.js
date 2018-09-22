@@ -22,6 +22,41 @@ module.exports = function (type) {
             this.index = 0;\n\
             this.buffer = Buffer.alloc(size);\n\
         }\n\
+        function getDynamicSize(a) {\n\
+        if (a > 270549119) {\n\
+            throw "ERR: OUT OF BOUNDS"\n\
+        } else if (a > 2113663) {\n\
+            return 4;\n\
+        } else if (a > 16511) {\n\
+            return 3;\n\
+        } else if (a > 127) {\n\
+            return 2;\n\
+        } else {\n\
+            return 1;\n\
+        }\n\
+    }\n\
+        Writer.prototype.writeDynamic = function(a) {\n\
+            var i;\n\
+            if (a > 270549119) {\n\
+                throw "ERR: OUT OF BOUNDS"\n\
+            } else if (a > 2113663) {\n\
+                a = a - 2113664;\n\
+                i = 3;\n\
+            } else if (a > 16511) {\n\
+                a = a - 16512;\n\
+                i = 2;\n\
+            } else if (a > 127) {\n\
+                a = a - 128;\n\
+                i = 1;\n\
+            } else {\n\
+                i = 0;\n\
+            }\n\
+            for (var j = 0; j < i; j++) {\n\
+                this.writeUInt8((a & 127) | 128);\n\
+                a = a >> 7;\n\
+            }\n\
+            this.writeUInt8(a);\n\
+        }\n\
         Writer.prototype.writeString8 = function(string) {\n\
             for (var i = 0; i < string.length; i++) {\n\
                 this.writeUInt8(string.charCodeAt(i))\n\
@@ -59,6 +94,20 @@ module.exports = function (type) {
             this.index = 0;\n\
             this.buffer = buf;\n\
         }\n\
+Reader.prototype.readDynamic = function() {\n\
+            var num = 0;\n\
+            for (var i = 0; i < 4; i++) {\n\
+                var n = this.readUInt8();\n\
+                num += (n & 127) << (i * 7);\n\
+                if (n < 127) {\n\
+                    break;\n\
+                }\n\
+            }\n\
+            if (i === 2) num += 128;\n\
+            else if (i === 3) num += 16512;\n\
+            else if (i === 4) num += 2113664;\n\
+            return num;\n\
+    }\n\
         Reader.prototype.readString8 = function() {\n\
             var data = "";\n\
             while (this.index <= this.buffer.length) {\n\

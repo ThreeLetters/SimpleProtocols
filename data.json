@@ -1,6 +1,13 @@
 {
-    hello: "string",
-    this: "int -100 50",
-    is: "string 16",
-    atest: "int 0 1000"
+    "deleteUnits": [
+     "int 0 4000000"
+ ],
+    "addUnits": [
+        {
+            "id": "int 0 4000000",
+            "owner": "int 0 4000000",
+            ""
+        }
+    ]
+
 }

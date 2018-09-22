@@ -15,23 +15,24 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+
 var parser = require('./lib/parser.js')
 var fs = require('fs');
-console.log("Reading data.json...")
-eval("var object = " +
-    fs.readFileSync("data.json", "utf8"))
-eval("var options = " +
-    fs.readFileSync("options.json", "utf8"))
-console.log("Generating code...")
+
+module.exports = function (data, options) {
+
+    options = options || {
+        shuffleObjects: true, // Shuffle order for objects
+        scrambleConditionals: true, // Scramble conditional statements
+        scrambleNumbers: true, // Scramble numbers
+        encodeStrings: false, // encode strings
+        pack: false, // Pack output code,
+        getname: 'getData',
+        setname: 'setData',
+    }
 
 
-
-
-var results = parser(object, options);
-console.log("Writing files...")
-fs.writeFileSync(__dirname + "/out/setNodeJS.js", results.set);
-fs.writeFileSync(__dirname + "/out/getNodeJS.js", results.get);
-fs.writeFileSync(__dirname + "/out/setBrowser.js", results.setb);
-fs.writeFileSync(__dirname + "/out/getBrowser.js", results.getb);
-
-console.log("Get/Set code generated! Files located in ./out/")
+    var results = parser(data, options);
+    return results
+}
