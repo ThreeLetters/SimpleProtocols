@@ -15,40 +15,23 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-"use strict";
-
-module.exports = class DataService {
-    constructor() {
-        this.data = [];
-        this.index = 0;
-        this.append = [];
-    }
-    push(a) {
-
-        this.data.splice(this.index++, 0, a)
-        // console.log(this.data)
-    }
-    push2(a) {
-        this.data.push(a);
-    }
-    push3(a) {
-        this.data.splice(this.index, 0, a)
-    }
-    push4(a) {
-        this.append.push(a)
-    }
-    end() {
-
-        this.push(this.append[this.append.length - 1]);
-        this.append.splice(this.append.length - 1, 1)
-
-    }
-    set(a, ind) {
-        this.data[ind] = a;
-    }
-    toString() {
-        return this.data.join("\n");
-    }
+var parser = require('./lib/parser.js')
+var fs = require('fs');
+console.log("Reading data.json...")
+eval("var object = " +
+    fs.readFileSync("data.json", "utf8"))
+eval("var options = " +
+    fs.readFileSync("options.json", "utf8"))
+console.log("Generating code...")
 
 
-}
+
+
+var results = parser(object, options);
+console.log("Writing files...")
+fs.writeFileSync(__dirname + "/out/setNodeJS.js", results.set);
+fs.writeFileSync(__dirname + "/out/getNodeJS.js", results.get);
+fs.writeFileSync(__dirname + "/out/setBrowser.js", results.setb);
+fs.writeFileSync(__dirname + "/out/getBrowser.js", results.getb);
+
+console.log("Get/Set code generated! Files located in ./out/")

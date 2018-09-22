@@ -1,6 +1,6 @@
-{
-    hello: "string",
-    this: "int -100 50",
-    is: "string 16",
-    atest: "int 0 1000"
-}
+[
+    "length 5",
+
+             "int 20 200"
+
+]

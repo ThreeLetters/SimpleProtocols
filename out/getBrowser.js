@@ -1,7 +1,22 @@
-function get(buf) {
+function getData(reader) {
+
     var Reader = function(buf) {
         this.index = 0;
         this.buffer = new DataView(buf);
+    }
+    Reader.prototype.readDynamic = function() {
+        var num = 0;
+        for (var i = 0; i < 4; i++) {
+            var n = this.readUInt8();
+            num += (n & 127) << (i * 7);
+            if (n < 127) {
+                break;
+            }
+        }
+        if (i === 2) num += 128;
+        else if (i === 3) num += 16512;
+        else if (i === 4) num += 2113664;
+        return num;
     }
     Reader.prototype.readString8 = function() {
         var data = "";
@@ -45,12 +60,10 @@ function get(buf) {
     }
 
     var reader = new Reader(buf);
-    var data1;
 
-    var data1 = {};
-    data1.hello = reader.readString8();
-    data1.this = reader.readUInt8() - 8;
-    data1.atest = reader.readUInt16BE() - 54767;
-    data1.is = reader.readString16();
+    var data1 = [];
+    for (var i1 = 0; i1 < 5; i1++) {
+        data1.push((reader.readUInt8() + 55) ^ 1650);
+    }
     return data1;
 }

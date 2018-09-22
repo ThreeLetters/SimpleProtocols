@@ -1,7 +1,9 @@
-{
-    shuffleObjects: true, // Shuffle order for objects
-    scrambleConditionals: true, // Scramble conditional statements
-    scrambleNumbers: true, // Scramble numbers
-    encodeStrings: false, // encode strings
-    pack: false // Pack output code
-}
+ {
+     shuffleObjects: true, // Shuffle order for objects
+     scrambleConditionals: true, // Scramble conditional statements
+     scrambleNumbers: true, // Scramble numbers
+     encodeStrings: false, // encode strings
+     pack: false, // Pack output code,
+     getname: 'getData',
+     setname: 'setData',
+ }

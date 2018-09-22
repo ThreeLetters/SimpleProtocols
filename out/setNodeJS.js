@@ -1,7 +1,44 @@
-function set(data1) {
+function setData(data1) {
+
     function Writer(size) {
         this.index = 0;
         this.buffer = Buffer.alloc(size);
+    }
+
+    function getDynamicSize(a) {
+        if (a > 270549119) {
+            throw "ERR: OUT OF BOUNDS"
+        } else if (a > 2113663) {
+            return 4;
+        } else if (a > 16511) {
+            return 3;
+        } else if (a > 127) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+    Writer.prototype.writeDynamic = function(a) {
+        var i;
+        if (a > 270549119) {
+            throw "ERR: OUT OF BOUNDS"
+        } else if (a > 2113663) {
+            a = a - 2113664;
+            i = 3;
+        } else if (a > 16511) {
+            a = a - 16512;
+            i = 2;
+        } else if (a > 127) {
+            a = a - 128;
+            i = 1;
+        } else {
+            i = 0;
+        }
+        for (var j = 0; j < i; j++) {
+            this.writeUInt8((a & 127) | 128);
+            a = a >> 7;
+        }
+        this.writeUInt8(a);
     }
     Writer.prototype.writeString8 = function(string) {
         for (var i = 0; i < string.length; i++) {
@@ -38,13 +75,11 @@ function set(data1) {
 
     var byteLen = 0;
 
-    byteLen += 1 + data1.hello.length * 1;
-    byteLen += 2 + data1.is.length * 2;
-    byteLen += 3;
+    byteLen += 5;
     var writer = new Writer(byteLen);
-    writer.writeString8(data1.hello);
-    writer.writeUInt8(data1.this + 8);
-    writer.writeUInt16BE(data1.atest + 54767);
-    writer.writeString16(data1.is);
+    for (var i1 = 0; i1 < 5; i1++) {
+        var data2 = data1[i1];
+        writer.writeUInt8(data2 ^ 1650 - 55);
+    }
     return writer.toBuffer();
 }
