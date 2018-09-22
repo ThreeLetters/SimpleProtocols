@@ -1,13 +1,6 @@
-{
-    "deleteUnits": [
-     "int 0 4000000"
- ],
-    "addUnits": [
-        {
-            "id": "int 0 4000000",
-            "owner": "int 0 4000000",
-            ""
-        }
-    ]
-
-}
+[
+    {
+        this: "int dynamic",
+        atest: "int 0 1000"
+    }
+]

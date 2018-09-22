@@ -23,18 +23,18 @@ module.exports = function (type) {
             this.buffer = Buffer.alloc(size);\n\
         }\n\
         function getDynamicSize(a) {\n\
-        if (a > 270549119) {\n\
-            throw "ERR: OUT OF BOUNDS"\n\
-        } else if (a > 2113663) {\n\
-            return 4;\n\
-        } else if (a > 16511) {\n\
-            return 3;\n\
-        } else if (a > 127) {\n\
-            return 2;\n\
-        } else {\n\
-            return 1;\n\
+            if (a > 270549119) {\n\
+                throw "ERR: OUT OF BOUNDS"\n\
+            } else if (a > 2113663) {\n\
+                return 4;\n\
+            } else if (a > 16511) {\n\
+                return 3;\n\
+            } else if (a > 127) {\n\
+                return 2;\n\
+            } else {\n\
+                return 1;\n\
+            }\n\
         }\n\
-    }\n\
         Writer.prototype.writeDynamic = function(a) {\n\
             var i;\n\
             if (a > 270549119) {\n\
@@ -94,7 +94,7 @@ module.exports = function (type) {
             this.index = 0;\n\
             this.buffer = buf;\n\
         }\n\
-Reader.prototype.readDynamic = function() {\n\
+        Reader.prototype.readDynamic = function() {\n\
             var num = 0;\n\
             for (var i = 0; i < 4; i++) {\n\
                 var n = this.readUInt8();\n\
@@ -107,7 +107,7 @@ Reader.prototype.readDynamic = function() {\n\
             else if (i === 3) num += 16512;\n\
             else if (i === 4) num += 2113664;\n\
             return num;\n\
-    }\n\
+        }\n\
         Reader.prototype.readString8 = function() {\n\
             var data = "";\n\
             while (this.index <= this.buffer.length) {\n\
