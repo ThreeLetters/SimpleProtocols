@@ -1,4 +1,4 @@
-function undefined(data1) {
+function setData(data1) {
 
     function Writer(size) {
         this.index = 0;
@@ -73,46 +73,13 @@ function undefined(data1) {
         return this.buffer;
     }
 
-    function rc4(key, str) {
-        var s = [],
-            j = 0,
-            x, res = '';
-        for (var i = 0; i < 256; i++) {
-            s[i] = i;
-        }
-        for (i = 0; i < 256; i++) {
-            j = (j + s[i] + key.charCodeAt(i % key.length)) % 256;
-            x = s[i];
-            s[i] = s[j];
-            s[j] = x;
-        }
-        i = 0;
-        j = 0;
-        for (var y = 0; y < str.length; y++) {
-            i = (i + 1) % 256;
-            j = (j + s[i]) % 256;
-            x = s[i];
-            s[i] = s[j];
-            s[j] = x;
-            res += String.fromCharCode(str.charCodeAt(y) ^ s[(s[i] + s[j]) % 256]);
-        }
-        return res;
-    }
     var byteLen = 0;
 
-    byteLen += 2
-    for (var i1 = 0; i1 < data1.length; i1++) {
-        var data2 = data1[i1];
-        byteLen += getDynamicSize(data2.this ^ 14466309590);
-        byteLen += 2;
-    }
+    byteLen += 5;
     var writer = new Writer(byteLen);
-    var len1 = data1.length
-    writer.writeUInt16BE(len1)
-    for (var i1 = 0; i1 < len1; i1++) {
+    for (var i1 = 0; i1 < 5; i1++) {
         var data2 = data1[i1];
-        writer.writeUInt16BE(data2.atest ^ 382620 + 63263);
-        writer.writeDynamic(data2.this ^ 14466309590);
+        writer.writeUInt8(data2 ^ 1650 - 55);
     }
     return writer.toBuffer();
 }
