@@ -8,9 +8,8 @@ Generates code for binary serialisation. Like google's protocol buffers, but sim
 > node index.js
 
 1. Edit the data.json file to specify data types. (You can also edit options.json)
-2. Run `node index.js`
+2. Run `node cli.js`
 3. Generated code located at /out/
-
 ## Documentation
 
 ### Data types
