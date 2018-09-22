@@ -1,0 +1,25 @@
+{
+  "name": "simpleprotocols",
+  "version": "1.0.0",
+  "description": "Quickly generate binary protocol code",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "node cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThreeLetters/SimpleProtocols.git"
+  },
+  "keywords": [
+    "binary"
+  ],
+  "author": "Andrews54757",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/ThreeLetters/SimpleProtocols/issues"
+  },
+  "homepage": "https://github.com/ThreeLetters/SimpleProtocols#readme"
+}

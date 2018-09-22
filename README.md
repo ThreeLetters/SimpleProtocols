@@ -10,6 +10,11 @@ Generates code for binary serialisation. Like google's protocol buffers, but sim
 1. Edit the data.json file to specify data types. (You can also edit options.json)
 2. Run `node cli.js`
 3. Generated code located at /out/
+
+> require("simpleprotocols")
+
+Available on NPM.
+
 ## Documentation
 
 ### Data types
