@@ -75,11 +75,8 @@ function setData(data1) {
 
     var byteLen = 0;
 
-    byteLen += 5;
+    byteLen += getDynamicSize(data1 ^ 63)
     var writer = new Writer(byteLen);
-    for (var i1 = 0; i1 < 5; i1++) {
-        var data2 = data1[i1];
-        writer.writeUInt8(data2 ^ 1650 - 55);
-    }
+    writer.writeDynamic(data1 ^ 63)
     return writer.toBuffer();
 }

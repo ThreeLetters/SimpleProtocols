@@ -61,9 +61,6 @@ function getData(reader) {
 
     var reader = new Reader(buf);
 
-    var data1 = [];
-    for (var i1 = 0; i1 < 5; i1++) {
-        data1.push((reader.readUInt8() + 55) ^ 1650);
-    }
+    data1 = (reader.readDynamic()) ^ 63;
     return data1;
 }
