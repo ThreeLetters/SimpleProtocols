@@ -99,7 +99,8 @@ module.exports = function (type) {
             for (var i = 0; i < 4; i++) {\n\
                 var n = this.readUInt8();\n\
                 num += (n & 127) << (i * 7);\n\
-                if (n < 127) {\n\
+                if (n <= 127) {\n\
+                    i++;\n\
                     break;\n\
                 }\n\
             }\n\

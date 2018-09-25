@@ -75,8 +75,41 @@ function setData(data1) {
 
     var byteLen = 0;
 
-    byteLen += getDynamicSize(data1 ^ 63)
+    var data2 = data1.addUnits;
+    byteLen += getDynamicSize(data2)
+    byteLen += 13 * data2.length;
+    var data2 = data1.moveUnits;
+    byteLen += getDynamicSize(data2)
+    byteLen += 8 * data2.length;
+    var data2 = data1.deleteUnits;
+    byteLen += getDynamicSize(data2)
+    byteLen += 4 * data2.length;
     var writer = new Writer(byteLen);
-    writer.writeDynamic(data1 ^ 63)
+    var data2 = data1.addUnits;
+    var len2 = data2.length
+    writer.writeDynamic(len2)
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeUInt32BE((data3.y + 167039652) ^ 332291689);
+        writer.writeUInt32BE((data3.x + 247682845) ^ 1178953299);
+        writer.writeUInt32BE((data3.id + 275939054) ^ 1506270027);
+        writer.writeUInt8((data3.type + 26) ^ 208);
+    }
+    var data2 = data1.moveUnits;
+    var len2 = data2.length
+    writer.writeDynamic(len2)
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeUInt16BE((data3.x + 31389) ^ 61747);
+        writer.writeUInt32BE((data3.id + 184020690) ^ 104676264);
+        writer.writeUInt16BE((data3.y + 30940) ^ 47435);
+    }
+    var data2 = data1.deleteUnits;
+    var len2 = data2.length
+    writer.writeDynamic(len2)
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeUInt32BE((data3 + 5518951) ^ 984404177);
+    }
     return writer.toBuffer();
 }
