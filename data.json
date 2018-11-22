@@ -1,20 +1,19 @@
-{
-    deleteUnits: [
-                "int 0 4000000000"
-            ],
-    addUnits: [
-        {
-            id: "int 0 4000000000",
-            x: "int 0 4000000000",
-            y: "int 0 4000000000",
-            type: "int 0 100"
-                }
-            ],
-    moveUnits: [
-        {
-            id: "int 0 4000000000",
-            x: "int -32000 32000",
-            y: "int -32000 32000",
-                }
-            ]
-}
+[{
+    id: "int dynamic",
+    name: "string 16",
+    scale: {
+        x: "int float32",
+        y: "int float32",
+        z: "int float32"
+    },
+    position: {
+        x: "int float32",
+        y: "int float32",
+        z: "int float32"
+    },
+    rotation: {
+        x: "int float32",
+        y: "int float32",
+        z: "int float32"
+    }
+}]

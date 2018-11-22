@@ -54,6 +54,9 @@ function getData(reader) {
         this.index += 2;
         return data;
     }
+    Reader.prototype.readUInt24BE = function() {
+        return (this.buffer.readUInt8(this.index++) << 16) + (this.buffer.readUInt8(this.index++) << 8) + this.buffer.readUInt8(this.index++);
+    }
     Reader.prototype.readUInt32BE = function() {
         var data = this.buffer.readUInt32BE(this.index);
         this.index += 4;
@@ -62,33 +65,28 @@ function getData(reader) {
 
     var reader = new Reader(buf);
 
-    var data1 = {};
-    var len2 = reader.readDynamic();
-    var data2 = [];
-    for (var i2 = 0; i2 < len2; i2++) {
+    var len1 = reader.readDynamic();
+    var data1 = [];
+    for (var i1 = 0; i1 < len1; i1++) {
+        var data2 = {};
         var data3 = {};
-        data3.y = reader.readUInt32BE() ^ 332291689 - 167039652;
-        data3.x = reader.readUInt32BE() ^ 1178953299 - 247682845;
-        data3.id = reader.readUInt32BE() ^ 1506270027 - 275939054;
-        data3.type = reader.readUInt8() ^ 208 - 26;
-        data2.push(data3);
-    }
-    data1.addUnits = data2;
-    var len2 = reader.readDynamic();
-    var data2 = [];
-    for (var i2 = 0; i2 < len2; i2++) {
+        data3.x = (reader.readFloat32());
+        data3.z = (reader.readFloat32());
+        data3.y = (reader.readFloat32());
+        data2.rotation = data3;
         var data3 = {};
-        data3.x = reader.readUInt16BE() ^ 61747 - 31389;
-        data3.id = reader.readUInt32BE() ^ 104676264 - 184020690;
-        data3.y = reader.readUInt16BE() ^ 47435 - 30940;
-        data2.push(data3);
+        data3.x = (reader.readFloat32());
+        data3.z = (reader.readFloat32());
+        data3.y = (reader.readFloat32());
+        data2.position = data3;
+        data2.id = ((reader.readDynamic() ^ 114) >>> 0);
+        var data3 = {};
+        data3.x = (reader.readFloat32());
+        data3.y = (reader.readFloat32());
+        data3.z = (reader.readFloat32());
+        data2.scale = data3;
+        data2.name = reader.readString16();
+        data1.push(data2);
     }
-    data1.moveUnits = data2;
-    var len2 = reader.readDynamic();
-    var data2 = [];
-    for (var i2 = 0; i2 < len2; i2++) {
-        data2.push(reader.readUInt32BE() ^ 984404177 - 5518951);
-    }
-    data1.deleteUnits = data2;
     return data1;
 }

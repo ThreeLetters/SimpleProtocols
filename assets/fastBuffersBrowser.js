@@ -78,6 +78,11 @@ Reader.prototype.readUInt32BE = function () {\n\
     var data = this.buffer.getUint32(this.index);\n\
     this.index += 4;\n\
     return data;\n\
+}\n\
+Reader.prototype.readFloat32BE = function () {\n\
+    var data = this.buffer.getFloat32(this.index);\n\
+    this.index += 4;\n\
+    return data;\n\
 }',
         writer: '\nfunction Writer(size) {\n\
     this.buf = new ArrayBuffer(size);\n\
@@ -154,6 +159,10 @@ Writer.prototype.writeUInt24BE = function (n) {\n\
 }\n\
 Writer.prototype.writeUInt32BE = function (n) {\n\
     this.buffer.setUint32(this.index,n)\n\
+    this.index += 4;\n\
+}\n\
+Writer.prototype.writeFloat32BE = function (n) {\n\
+    this.buffer.setFloat32(this.index,n)\n\
     this.index += 4;\n\
 }\n\
 Writer.prototype.toBuffer = function () {\n\

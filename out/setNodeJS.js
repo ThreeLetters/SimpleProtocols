@@ -65,6 +65,14 @@ function setData(data1) {
         this.buffer.writeUInt16BE(n, this.index)
         this.index += 2;
     }
+    Writer.prototype.writeUInt24BE = function(n) {
+        this.buffer.writeUInt8(n & 255, this.index + 2)
+        n = n >> 8;
+        this.buffer.writeUInt8(n & 255, this.index + 1)
+        n = n >> 8;
+        this.buffer.writeUInt8(n, this.index)
+        this.index += 3;
+    }
     Writer.prototype.writeUInt32BE = function(n) {
         this.buffer.writeUInt32BE(n, this.index)
         this.index += 4;
@@ -75,41 +83,35 @@ function setData(data1) {
 
     var byteLen = 0;
 
-    var data2 = data1.addUnits;
-    byteLen += getDynamicSize(data2)
-    byteLen += 13 * data2.length;
-    var data2 = data1.moveUnits;
-    byteLen += getDynamicSize(data2)
-    byteLen += 8 * data2.length;
-    var data2 = data1.deleteUnits;
-    byteLen += getDynamicSize(data2)
-    byteLen += 4 * data2.length;
+    byteLen += getDynamicSize(data1.length)
+    for (var i1 = 0; i1 < data1.length; i1++) {
+        var data2 = data1[i1];
+        var data3 = data2.rotation;
+        var data3 = data2.position;
+        byteLen += getDynamicSize((data2.id ^ 114) >>> 0);
+        var data3 = data2.scale;
+        byteLen += 2 + data2.name.length * 2;
+        byteLen += 36;
+    }
     var writer = new Writer(byteLen);
-    var data2 = data1.addUnits;
-    var len2 = data2.length
-    writer.writeDynamic(len2)
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeUInt32BE((data3.y + 167039652) ^ 332291689);
-        writer.writeUInt32BE((data3.x + 247682845) ^ 1178953299);
-        writer.writeUInt32BE((data3.id + 275939054) ^ 1506270027);
-        writer.writeUInt8((data3.type + 26) ^ 208);
-    }
-    var data2 = data1.moveUnits;
-    var len2 = data2.length
-    writer.writeDynamic(len2)
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeUInt16BE((data3.x + 31389) ^ 61747);
-        writer.writeUInt32BE((data3.id + 184020690) ^ 104676264);
-        writer.writeUInt16BE((data3.y + 30940) ^ 47435);
-    }
-    var data2 = data1.deleteUnits;
-    var len2 = data2.length
-    writer.writeDynamic(len2)
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeUInt32BE((data3 + 5518951) ^ 984404177);
+    var len1 = data1.length
+    writer.writeDynamic(len1)
+    for (var i1 = 0; i1 < len1; i1++) {
+        var data2 = data1[i1];
+        var data3 = data2.rotation;
+        writer.writeFloat32((data3.x));
+        writer.writeFloat32((data3.z));
+        writer.writeFloat32((data3.y));
+        var data3 = data2.position;
+        writer.writeFloat32((data3.x));
+        writer.writeFloat32((data3.z));
+        writer.writeFloat32((data3.y));
+        writer.writeDynamic(((data2.id) ^ 114) >>> 0);
+        var data3 = data2.scale;
+        writer.writeFloat32((data3.x));
+        writer.writeFloat32((data3.y));
+        writer.writeFloat32((data3.z));
+        writer.writeString16(data2.name);
     }
     return writer.toBuffer();
 }

@@ -18,8 +18,9 @@ Available on NPM.
 ## Documentation
 
 ### Data types
-1. `int [min] [max]` - Integer
-2. `string [encoding]` - A string. Encodings include `8` (default), `16`, and `32`.
+1. `int [min] [max]` - Integer/number. Can be decimals. Greatest amount of decimals given is used.
+2. `int [type]` - Integer/number. Can be: `dynamic`, `int8`, `uint8`, `int16`, `uint16`, `int32`, `uint32`, `uint24`, `float32`
+3. `string [encoding]` - A string. Encodings include `8` (default), `16`, and `32`.
 
 ### Arrays
 #### Fixed arrays

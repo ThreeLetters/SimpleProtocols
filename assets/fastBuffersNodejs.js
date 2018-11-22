@@ -94,6 +94,10 @@ module.exports = function (type) {
             this.buffer.writeUInt32BE(n, this.index)\n\
             this.index += 4;\n\
         }\n\
+        Writer.prototype.writeFloat32BE = function(n) {\n\
+            this.buffer.writeFloatBE(n, this.index)\n\
+            this.index += 4;\n\
+        }\n\
          Writer.prototype.toBuffer = function() {\n\
             return this.buffer;\n\
         }',
@@ -157,6 +161,11 @@ module.exports = function (type) {
         }\n\
         Reader.prototype.readUInt32BE = function() {\n\
             var data = this.buffer.readUInt32BE(this.index);\n\
+            this.index += 4;\n\
+            return data;\n\
+        }\n\
+        Reader.prototype.readFloat32BE = function() {\n\
+            var data = this.buffer.readFloatBE(this.index);\n\
             this.index += 4;\n\
             return data;\n\
         }'
