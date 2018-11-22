@@ -20,9 +20,9 @@
 var parser = require('./lib/parser.js')
 var fs = require('fs');
 
-module.exports = function (data, options) {
+module.exports = function (data, newOptions) {
 
-    options = options || {
+    var options = {
         shuffleObjects: true, // Shuffle order for objects
         scrambleConditionals: true, // Scramble conditional statements
         scrambleNumbers: true, // Scramble numbers
@@ -31,7 +31,9 @@ module.exports = function (data, options) {
         getname: 'getData',
         setname: 'setData',
     }
-
+    for (var property in newOptions) {
+        options[property] = newOptions[property];
+    }
 
     var results = parser(data, options);
     return results
