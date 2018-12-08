@@ -87,60 +87,14 @@ function setData(data1) {
 
     var byteLen = 0;
 
-    var data2 = data1.moveUnits;
-    byteLen += getDynamicSize(data2.length)
-    for (var i2 = 0; i2 < data2.length; i2++) {
-        var data3 = data2[i2];
-        byteLen += getDynamicSize((data3.size ^ 73) >>> 0);
-        byteLen += getDynamicSize((data3.id ^ 7) >>> 0);
-        byteLen += 6;
-    }
-    var data2 = data1.deleteUnits;
-    byteLen += getDynamicSize(data2.length)
-    for (var i2 = 0; i2 < data2.length; i2++) {
-        var data3 = data2[i2];
-        byteLen += getDynamicSize((data3.id ^ 31) >>> 0);
-    }
-    var data2 = data1.addUnits;
 
-    for (var i2 = 0; i2 < data2.length; i2++) {
-        var data3 = data2[i2];
-        byteLen += getDynamicSize((data3.id ^ 1) >>> 0);
-        byteLen += getDynamicSize((data3.size ^ 15) >>> 0);
-        byteLen += 11;
-    }
-    byteLen += 4;
+    byteLen += 1 * data1.length;
     var writer = new Writer(byteLen);
-    var data2 = data1.moveUnits;
-    var len2 = data2.length
-    writer.writeDynamic(len2)
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeDynamic(((data3.size) ^ 73) >>> 0);
-        writer.writeUInt24BE(((data3.x + 8037928) ^ 10397003) >>> 0);
-        writer.writeDynamic(((data3.id) ^ 7) >>> 0);
-        writer.writeUInt24BE(((data3.y + 8465274) ^ 9851495) >>> 0);
-    }
-    writer.writeUInt32BE(((data1.timestamp) ^ 2063392257) >>> 0);
-    var data2 = data1.deleteUnits;
-    var len2 = data2.length
-    writer.writeDynamic(len2)
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeDynamic(((data3.id) ^ 31) >>> 0);
-    }
-    var data2 = data1.addUnits;
-    var len2 = data2.length
+    var len1 = data1.length
 
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeUInt24BE(((data3.cx + 8264856) ^ 6139462) >>> 0);
-        writer.writeDynamic(((data3.id) ^ 1) >>> 0);
-        writer.writeDynamic(((data3.size) ^ 15) >>> 0);
-        writer.writeUInt24BE(((data3.cy + 8380667) ^ 9066419) >>> 0);
-        writer.writeUInt8(((((data3.team + 23) << 1) | (i2 + 1 < len2)) ^ 197) >>> 0);
-        writer.writeUInt8(((data3.type + 11) ^ 237) >>> 0);
-        writer.writeUInt24BE(((data3.capturedAt) ^ 10085185) >>> 0);
+    for (var i1 = 0; i1 < len1; i1++) {
+        var data2 = data1[i1];
+        writer.writeUInt8(((((data2 + 44) << 1) | (i1 + 1 < len1)) ^ 228) >>> 0);
     }
     return writer.toBuffer();
 }
