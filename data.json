@@ -1,19 +1,21 @@
-[{
-    id: "int dynamic",
-    name: "string 16",
-    scale: {
-        x: "int float32",
-        y: "int float32",
-        z: "int float32"
-    },
-    position: {
-        x: "int float32",
-        y: "int float32",
-        z: "int float32"
-    },
-    rotation: {
-        x: "int float32",
-        y: "int float32",
-        z: "int float32"
-    }
-}]
+{
+    timestamp: "int uint32",
+    deleteUnits: [{
+        "id": "int dynamic"
+    }],
+    addUnits: [{
+        id: "int dynamic",
+        cx: "int -8000000 8000000",
+        cy: "int -8000000 8000000",
+        team: "int -10 10",
+        type: "int 0 100",
+        size: "int dynamic",
+        capturedAt: "int uint24"
+    }],
+    moveUnits: [{
+        id: "int dynamic",
+        size: "int dynamic",
+        x: "int -8000000 8000000",
+        y: "int -8000000 8000000",
+    }]
+}

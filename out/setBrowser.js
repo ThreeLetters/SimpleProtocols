@@ -77,41 +77,70 @@ function setData(data1) {
         this.buffer.setUint32(this.index, n)
         this.index += 4;
     }
+    Writer.prototype.writeFloat32BE = function(n) {
+        this.buffer.setFloat32(this.index, n)
+        this.index += 4;
+    }
     Writer.prototype.toBuffer = function() {
         return this.buf;
     }
 
     var byteLen = 0;
 
-    byteLen += getDynamicSize(data1.length)
-    for (var i1 = 0; i1 < data1.length; i1++) {
-        var data2 = data1[i1];
-        var data3 = data2.rotation;
-        var data3 = data2.position;
-        byteLen += getDynamicSize((data2.id ^ 114) >>> 0);
-        var data3 = data2.scale;
-        byteLen += 2 + data2.name.length * 2;
-        byteLen += 36;
+    var data2 = data1.moveUnits;
+    byteLen += getDynamicSize(data2.length)
+    for (var i2 = 0; i2 < data2.length; i2++) {
+        var data3 = data2[i2];
+        byteLen += getDynamicSize((data3.size ^ 61) >>> 0);
+        byteLen += getDynamicSize((data3.id ^ 66) >>> 0);
+        byteLen += 6;
     }
+    var data2 = data1.addUnits;
+
+    for (var i2 = 0; i2 < data2.length; i2++) {
+        var data3 = data2[i2];
+        byteLen += getDynamicSize((data3.size ^ 6) >>> 0);
+        byteLen += getDynamicSize((data3.id ^ 123) >>> 0);
+        byteLen += 11;
+    }
+    var data2 = data1.deleteUnits;
+    byteLen += getDynamicSize(data2.length)
+    for (var i2 = 0; i2 < data2.length; i2++) {
+        var data3 = data2[i2];
+        byteLen += getDynamicSize((data3.id ^ 103) >>> 0);
+    }
+    byteLen += 4;
     var writer = new Writer(byteLen);
-    var len1 = data1.length
-    writer.writeDynamic(len1)
-    for (var i1 = 0; i1 < len1; i1++) {
-        var data2 = data1[i1];
-        var data3 = data2.rotation;
-        writer.writeFloat32((data3.x));
-        writer.writeFloat32((data3.z));
-        writer.writeFloat32((data3.y));
-        var data3 = data2.position;
-        writer.writeFloat32((data3.x));
-        writer.writeFloat32((data3.z));
-        writer.writeFloat32((data3.y));
-        writer.writeDynamic(((data2.id) ^ 114) >>> 0);
-        var data3 = data2.scale;
-        writer.writeFloat32((data3.x));
-        writer.writeFloat32((data3.y));
-        writer.writeFloat32((data3.z));
-        writer.writeString16(data2.name);
+    var data2 = data1.moveUnits;
+    var len2 = data2.length
+    writer.writeDynamic(len2)
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeDynamic(((data3.size) ^ 61) >>> 0);
+        writer.writeUInt24BE(((data3.x + 8220409) ^ 7984082) >>> 0);
+        writer.writeDynamic(((data3.id) ^ 66) >>> 0);
+        writer.writeUInt24BE(((data3.y + 8393309) ^ 4709325) >>> 0);
     }
+    var data2 = data1.addUnits;
+    var len2 = data2.length
+
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeUInt24BE(((data3.cx + 8499295) ^ 14901642) >>> 0);
+        writer.writeUInt8(((((data3.type + 48) << 1) | (i2 < len2)) ^ 72) >>> 0);
+        writer.writeUInt24BE(((data3.cy + 8384257) ^ 12192830) >>> 0);
+        writer.writeDynamic(((data3.size) ^ 6) >>> 0);
+        writer.writeUInt24BE(((data3.capturedAt) ^ 997932) >>> 0);
+        writer.writeDynamic(((data3.id) ^ 123) >>> 0);
+        writer.writeUInt8(((data3.team + 36) ^ 84) >>> 0);
+    }
+    var data2 = data1.deleteUnits;
+    var len2 = data2.length
+    writer.writeDynamic(len2)
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeDynamic(((data3.id) ^ 103) >>> 0);
+    }
+    writer.writeUInt32BE(((data1.timestamp) ^ 113906985) >>> 0);
     return writer.toBuffer();
 }
