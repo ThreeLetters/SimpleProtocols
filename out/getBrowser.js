@@ -1,4 +1,4 @@
-function getData(reader) {
+function getData(buf) {
 
     var Reader = function(buf) {
         this.index = 0;
@@ -70,10 +70,40 @@ function getData(reader) {
 
     var reader = new Reader(buf);
 
-
-    var data1 = [];
-    for (var a1 = 1; a1 & 1;) {
-        data1.push((((a1 = reader.readUInt8() ^ 228) >> 1) >>> 0) - 44);
+    var data1 = {};
+    data1.timestamp = ((reader.readUInt32BE() ^ 2085327692) >>> 0);
+    var len2 = reader.readDynamic();
+    var data2 = [];
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = {};
+        data3.y = ((reader.readUInt24BE() ^ 11440619) >>> 0) - 8606036;
+        data3.x = ((reader.readUInt24BE() ^ 10768733) >>> 0) - 8438669;
+        data3.id = ((reader.readDynamic() ^ 110) >>> 0);
+        data3.size = ((reader.readDynamic() ^ 36) >>> 0);
+        data2.push(data3);
     }
+    data1.moveUnits = data2;
+    var len2 = reader.readDynamic();
+    var data2 = [];
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = {};
+        data3.id = ((reader.readDynamic() ^ 76) >>> 0);
+        data2.push(data3);
+    }
+    data1.deleteUnits = data2;
+
+    var data2 = [];
+    for (var a2 = 1; a2 & 1;) {
+        var data3 = {};
+        data3.type = (((a2 = reader.readUInt8() ^ 85) >> 1) >>> 0) - 2;
+        data3.capturedAt = ((reader.readUInt24BE() ^ 4275749) >>> 0);
+        data3.cx = ((reader.readUInt24BE() ^ 2844981) >>> 0) - 8062272;
+        data3.id = ((reader.readDynamic() ^ 33) >>> 0);
+        data3.team = ((reader.readUInt8() ^ 0) >>> 0) - 243;
+        data3.size = ((reader.readDynamic() ^ 12) >>> 0);
+        data3.cy = ((reader.readUInt24BE() ^ 6770126) >>> 0) - 8031450;
+        data2.push(data3);
+    }
+    data1.addUnits = data2;
     return data1;
 }
