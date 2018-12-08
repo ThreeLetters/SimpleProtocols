@@ -3,6 +3,8 @@
      scrambleConditionals: true, // Scramble conditional statements
      scrambleNumbers: true, // Scramble numbers
      encodeStrings: false, // encode strings
+     maskStrings: true, // Mask strings
+     maskLength: [4, 6], // Mask length. Min/max
      pack: false, // Pack output code,
      getname: 'getData',
      setname: 'setData',

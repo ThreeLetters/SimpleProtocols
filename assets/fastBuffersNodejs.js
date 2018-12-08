@@ -18,8 +18,8 @@
 module.exports = function (type) {
 
     var FastBuffers = {
-        writer: '\nfunction Writer(size) {\n\
-            this.index = 0;\n\
+        writer: '\nfunction Writer(size, index) {\n\
+            this.index = index || 0;\n\
             this.buffer = Buffer.alloc(size);\n\
         }\n\
         function getDynamicSize(a) {\n\
@@ -57,25 +57,28 @@ module.exports = function (type) {
             }\n\
             this.writeUInt8(a);\n\
         }\n\
-        Writer.prototype.writeString8 = function(string) {\n\
+        Writer.prototype.writeString8 = function(string, mask) {\n\
+            mask = mask || [0];\n\
             for (var i = 0; i < string.length; i++) {\n\
-                this.writeUInt8(string.charCodeAt(i))\n\
+                this.writeUInt8(string.charCodeAt(i) ^ mask[i % mask.length])\n\
             }\n\
-            this.writeUInt8(0)\n\
+            this.writeUInt8(mask[i % mask.length])\n\
         }\n\
-         Writer.prototype.writeString16 = function(string) {\n\
+        Writer.prototype.writeString16 = function(string, mask) {\n\
+            mask = mask || [0];\n\
             for (var i = 0; i < string.length; i++) {\n\
-                this.writeUInt16BE(string.charCodeAt(i))\n\
+                this.writeUInt16BE(string.charCodeAt(i) ^ mask[i % mask.length])\n\
             }\n\
-            this.writeUInt16BE(0)\n\
+            this.writeUInt16BE(mask[i % mask.length])\n\
         }\n\
-         Writer.prototype.writeString32 = function(string) {\n\
+        Writer.prototype.writeString32 = function(string, mask) {\n\
+            mask = mask || [0];\n\
             for (var i = 0; i < string.length; i++) {\n\
-                this.writeUInt32BE(string.charCodeAt(i))\n\
+                this.writeUInt32BE(string.charCodeAt(i) ^ mask[i % mask.length])\n\
             }\n\
-            this.writeUInt32BE(0)\n\
+            this.writeUInt32BE(mask[i % mask.length])\n\
         }\n\
-         Writer.prototype.writeUInt8 = function(n) {\n\
+        Writer.prototype.writeUInt8 = function(n) {\n\
             this.buffer.writeUInt8(n, this.index++)\n\
         }\n\
          Writer.prototype.writeUInt16BE = function(n) {\n\
@@ -102,8 +105,8 @@ module.exports = function (type) {
             return this.buffer;\n\
         }',
 
-        reader: '\nfunction Reader(buf) {\n\
-            this.index = 0;\n\
+        reader: '\nfunction Reader(buf, index) {\n\
+            this.index = index || 0;\n\
             this.buffer = buf;\n\
         }\n\
         Reader.prototype.readDynamic = function() {\n\
@@ -121,32 +124,35 @@ module.exports = function (type) {
             else if (i === 4) num += 2113664;\n\
             return num;\n\
     }\n\
-        Reader.prototype.readString8 = function() {\n\
-            var data = "";\n\
+        Reader.prototype.readString8 = function(mask) {\n\
+            mask = mask || [0];\n\
+            var data = [];\n\
             while (this.index <= this.buffer.length) {\n\
-                var d = this.readUInt8();\n\
+                var d = this.readUInt8() ^ mask[data.length % mask.length];\n\
                 if (!d) break;\n\
-                data += String.fromCharCode(d);\n\
+                data.push(String.fromCharCode(d));\n\
             }\n\
-            return data;\n\
+            return data.join("");\n\
         }\n\
-        Reader.prototype.readString16 = function() {\n\
-            var data = "";\n\
+        Reader.prototype.readString16 = function(mask) {\n\
+            mask = mask || [0];\n\
+            var data = [];\n\
             while (this.index <= this.buffer.length) {\n\
-                var d = this.readUInt16BE();\n\
+                var d = this.readUInt16BE() ^ mask[data.length % mask.length];\n\
                 if (!d) break;\n\
-                data += String.fromCharCode(d);\n\
+                data.push(String.fromCharCode(d));\n\
             }\n\
-            return data;\n\
+            return data.join("");\n\
         }\n\
-        Reader.prototype.readString32 = function() {\n\
-            var data = "";\n\
+        Reader.prototype.readString32 = function(mask) {\n\
+            mask = mask || [0];\n\
+            var data = [];\n\
             while (this.index <= this.buffer.length) {\n\
-                var d = this.readUInt32BE();\n\
+                var d = this.readUInt32BE() ^ mask[data.length % mask.length];\n\
                 if (!d) break;\n\
-                data += String.fromCharCode(d);\n\
+                data.push(String.fromCharCode(d));\n\
             }\n\
-            return data;\n\
+            return data.join("");\n\
         }\n\
         Reader.prototype.readUInt8 = function() {\n\
             return this.buffer.readUInt8(this.index++);\n\

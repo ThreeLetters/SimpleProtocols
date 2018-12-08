@@ -27,6 +27,8 @@ module.exports = function (data, newOptions) {
         scrambleConditionals: true, // Scramble conditional statements
         scrambleNumbers: true, // Scramble numbers
         encodeStrings: false, // encode strings
+        maskStrings: true,
+        maskLength: [4, 6],
         pack: false, // Pack output code,
         getname: 'getData',
         setname: 'setData',

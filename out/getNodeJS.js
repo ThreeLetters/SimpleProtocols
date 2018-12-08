@@ -1,7 +1,7 @@
-function getData(buf) {
+function getData(buf, startIndex) {
 
-    function Reader(buf) {
-        this.index = 0;
+    function Reader(buf, index) {
+        this.index = index || 0;
         this.buffer = buf;
     }
     Reader.prototype.readDynamic = function() {
@@ -19,32 +19,35 @@ function getData(buf) {
         else if (i === 4) num += 2113664;
         return num;
     }
-    Reader.prototype.readString8 = function() {
-        var data = "";
+    Reader.prototype.readString8 = function(mask) {
+        mask = mask || [0];
+        var data = [];
         while (this.index <= this.buffer.length) {
-            var d = this.readUInt8();
+            var d = this.readUInt8() ^ mask[data.length % mask.length];
             if (!d) break;
-            data += String.fromCharCode(d);
+            data.push(String.fromCharCode(d));
         }
-        return data;
+        return data.join("");
     }
-    Reader.prototype.readString16 = function() {
-        var data = "";
+    Reader.prototype.readString16 = function(mask) {
+        mask = mask || [0];
+        var data = [];
         while (this.index <= this.buffer.length) {
-            var d = this.readUInt16BE();
+            var d = this.readUInt16BE() ^ mask[data.length % mask.length];
             if (!d) break;
-            data += String.fromCharCode(d);
+            data.push(String.fromCharCode(d));
         }
-        return data;
+        return data.join("");
     }
-    Reader.prototype.readString32 = function() {
-        var data = "";
+    Reader.prototype.readString32 = function(mask) {
+        mask = mask || [0];
+        var data = [];
         while (this.index <= this.buffer.length) {
-            var d = this.readUInt32BE();
+            var d = this.readUInt32BE() ^ mask[data.length % mask.length];
             if (!d) break;
-            data += String.fromCharCode(d);
+            data.push(String.fromCharCode(d));
         }
-        return data;
+        return data.join("");
     }
     Reader.prototype.readUInt8 = function() {
         return this.buffer.readUInt8(this.index++);
@@ -68,42 +71,12 @@ function getData(buf) {
         return data;
     }
 
-    var reader = new Reader(buf);
+    var reader = new Reader(buf, startIndex);
 
-    var data1 = {};
-    data1.timestamp = ((reader.readUInt32BE() ^ 2085327692) >>> 0);
-    var len2 = reader.readDynamic();
-    var data2 = [];
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = {};
-        data3.y = ((reader.readUInt24BE() ^ 11440619) >>> 0) - 8606036;
-        data3.x = ((reader.readUInt24BE() ^ 10768733) >>> 0) - 8438669;
-        data3.id = ((reader.readDynamic() ^ 110) >>> 0);
-        data3.size = ((reader.readDynamic() ^ 36) >>> 0);
-        data2.push(data3);
+    var len1 = reader.readDynamic();
+    var data1 = [];
+    for (var i1 = 0; i1 < len1; i1++) {
+        data1.push(reader.readString16([24406, 12904, 16675, 23379, 37362]));
     }
-    data1.moveUnits = data2;
-    var len2 = reader.readDynamic();
-    var data2 = [];
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = {};
-        data3.id = ((reader.readDynamic() ^ 76) >>> 0);
-        data2.push(data3);
-    }
-    data1.deleteUnits = data2;
-
-    var data2 = [];
-    for (var a2 = 1; a2 & 1;) {
-        var data3 = {};
-        data3.type = (((a2 = reader.readUInt8() ^ 85) >> 1) >>> 0) - 2;
-        data3.capturedAt = ((reader.readUInt24BE() ^ 4275749) >>> 0);
-        data3.cx = ((reader.readUInt24BE() ^ 2844981) >>> 0) - 8062272;
-        data3.id = ((reader.readDynamic() ^ 33) >>> 0);
-        data3.team = ((reader.readUInt8() ^ 0) >>> 0) - 243;
-        data3.size = ((reader.readDynamic() ^ 12) >>> 0);
-        data3.cy = ((reader.readUInt24BE() ^ 6770126) >>> 0) - 8031450;
-        data2.push(data3);
-    }
-    data1.addUnits = data2;
     return data1;
 }
