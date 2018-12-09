@@ -90,62 +90,62 @@ function setData(data1, startIndex, sizeAdd) {
 
     var byteLen = 0;
 
-    var data2 = data1.addUnits;
-    byteLen++;
-    for (var i2 = 0; i2 < data2.length; i2++) {
-        var data3 = data2[i2];
-        byteLen += getDynamicSize((data3.id ^ 40) >>> 0);
-        byteLen += getDynamicSize((data3.size ^ 23) >>> 0);
-        byteLen += 11;
-    }
     var data2 = data1.moveUnits;
     byteLen += getDynamicSize(data2.length)
     for (var i2 = 0; i2 < data2.length; i2++) {
         var data3 = data2[i2];
-        byteLen += getDynamicSize((data3.size ^ 110) >>> 0);
-        byteLen += getDynamicSize((data3.id ^ 124) >>> 0);
+        byteLen += getDynamicSize((data3.size ^ 19) >>> 0);
+        byteLen += getDynamicSize((data3.id ^ 31) >>> 0);
         byteLen += 6;
+    }
+    var data2 = data1.addUnits;
+    byteLen++;
+    for (var i2 = 0; i2 < data2.length; i2++) {
+        var data3 = data2[i2];
+        byteLen += getDynamicSize((data3.size ^ 27) >>> 0);
+        byteLen += getDynamicSize((data3.id ^ 10) >>> 0);
+        byteLen += 11;
     }
     var data2 = data1.deleteUnits;
     byteLen += getDynamicSize(data2.length)
     for (var i2 = 0; i2 < data2.length; i2++) {
         var data3 = data2[i2];
-        byteLen += getDynamicSize((data3.id ^ 59) >>> 0);
+        byteLen += getDynamicSize((data3.id ^ 73) >>> 0);
     }
     byteLen += 4;
     var writer = new Writer(byteLen + (startIndex || 0) + sizeAdd, startIndex);
+    var data2 = data1.moveUnits;
+    var len2 = data2.length
+    writer.writeDynamic(len2)
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = data2[i2];
+        writer.writeUInt24BE(((data3.x + 8332580) ^ 15139376) >>> 0);
+        writer.writeDynamic(((data3.size) ^ 19) >>> 0);
+        writer.writeDynamic(((data3.id) ^ 31) >>> 0);
+        writer.writeUInt24BE(((data3.y + 8494729) ^ 611964) >>> 0);
+    }
+    writer.writeUInt32BE(((data1.timestamp) ^ 480693713) >>> 0);
     var data2 = data1.addUnits;
     var len2 = data2.length
 
     for (var i2 = 0; i2 < len2; i2++) {
         var data3 = data2[i2];
         var c2 = writer.index++;
-        writer.writeUInt24BE(((data3.cy + 8001204) ^ 8758680) >>> 0);
-        writer.writeUInt24BE(((data3.capturedAt) ^ 7762350) >>> 0);
-        writer.writeUInt8(((data3.type + 31) ^ 209) >>> 0, c2);
-        writer.writeDynamic(((data3.id) ^ 40) >>> 0);
-        writer.writeUInt24BE(((data3.cx + 8698126) ^ 1705158) >>> 0);
-        writer.writeDynamic(((data3.size) ^ 23) >>> 0);
-        writer.writeUInt8(((data3.team + 37) ^ 133) >>> 0);
+        writer.writeUInt8(((data3.team + 19) ^ 252) >>> 0, c2);
+        writer.writeDynamic(((data3.size) ^ 27) >>> 0);
+        writer.writeDynamic(((data3.id) ^ 10) >>> 0);
+        writer.writeUInt8(((data3.type + 12) ^ 72) >>> 0);
+        writer.writeUInt24BE(((data3.capturedAt) ^ 5793911) >>> 0);
+        writer.writeUInt24BE(((data3.cy + 8442296) ^ 14271170) >>> 0);
+        writer.writeUInt24BE(((data3.cx + 8162649) ^ 4230855) >>> 0);
     }
-    writer.writeUInt8(57);
-    var data2 = data1.moveUnits;
-    var len2 = data2.length
-    writer.writeDynamic(len2)
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = data2[i2];
-        writer.writeDynamic(((data3.size) ^ 110) >>> 0);
-        writer.writeUInt24BE(((data3.y + 8375476) ^ 4367320) >>> 0);
-        writer.writeDynamic(((data3.id) ^ 124) >>> 0);
-        writer.writeUInt24BE(((data3.x + 8616274) ^ 5241574) >>> 0);
-    }
-    writer.writeUInt32BE(((data1.timestamp) ^ 511112265) >>> 0);
+    writer.writeUInt8(32);
     var data2 = data1.deleteUnits;
     var len2 = data2.length
     writer.writeDynamic(len2)
     for (var i2 = 0; i2 < len2; i2++) {
         var data3 = data2[i2];
-        writer.writeDynamic(((data3.id) ^ 59) >>> 0);
+        writer.writeDynamic(((data3.id) ^ 73) >>> 0);
     }
     return writer.toBuffer();
 }

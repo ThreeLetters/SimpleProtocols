@@ -74,19 +74,31 @@ function getData(buf, startIndex) {
     var reader = new Reader(buf, startIndex);
 
     var data1 = {};
+    var len2 = reader.readDynamic();
+    var data2 = [];
+    for (var i2 = 0; i2 < len2; i2++) {
+        var data3 = {};
+        data3.x = ((reader.readUInt24BE() ^ 15139376) >>> 0) - 8332580;
+        data3.size = ((reader.readDynamic() ^ 19) >>> 0);
+        data3.id = ((reader.readDynamic() ^ 31) >>> 0);
+        data3.y = ((reader.readUInt24BE() ^ 611964) >>> 0) - 8494729;
+        data2.push(data3);
+    }
+    data1.moveUnits = data2;
+    data1.timestamp = ((reader.readUInt32BE() ^ 480693713) >>> 0);
 
     var data2 = [];
     while (true) {
         var b2 = reader.readUInt8();
-        if (b2 == 57) break;
+        if (b2 == 32) break;
         var data3 = {};
-        data3.cy = ((reader.readUInt24BE() ^ 8758680) >>> 0) - 8001204;
-        data3.capturedAt = ((reader.readUInt24BE() ^ 7762350) >>> 0);
-        data3.type = ((b2 ^ 209) >>> 0) - 31;
-        data3.id = ((reader.readDynamic() ^ 40) >>> 0);
-        data3.cx = ((reader.readUInt24BE() ^ 1705158) >>> 0) - 8698126;
-        data3.size = ((reader.readDynamic() ^ 23) >>> 0);
-        data3.team = ((reader.readUInt8() ^ 133) >>> 0) - 37;
+        data3.team = ((b2 ^ 252) >>> 0) - 19;
+        data3.size = ((reader.readDynamic() ^ 27) >>> 0);
+        data3.id = ((reader.readDynamic() ^ 10) >>> 0);
+        data3.type = ((reader.readUInt8() ^ 72) >>> 0) - 12;
+        data3.capturedAt = ((reader.readUInt24BE() ^ 5793911) >>> 0);
+        data3.cy = ((reader.readUInt24BE() ^ 14271170) >>> 0) - 8442296;
+        data3.cx = ((reader.readUInt24BE() ^ 4230855) >>> 0) - 8162649;
         data2.push(data3);
     }
     data1.addUnits = data2;
@@ -94,19 +106,7 @@ function getData(buf, startIndex) {
     var data2 = [];
     for (var i2 = 0; i2 < len2; i2++) {
         var data3 = {};
-        data3.size = ((reader.readDynamic() ^ 110) >>> 0);
-        data3.y = ((reader.readUInt24BE() ^ 4367320) >>> 0) - 8375476;
-        data3.id = ((reader.readDynamic() ^ 124) >>> 0);
-        data3.x = ((reader.readUInt24BE() ^ 5241574) >>> 0) - 8616274;
-        data2.push(data3);
-    }
-    data1.moveUnits = data2;
-    data1.timestamp = ((reader.readUInt32BE() ^ 511112265) >>> 0);
-    var len2 = reader.readDynamic();
-    var data2 = [];
-    for (var i2 = 0; i2 < len2; i2++) {
-        var data3 = {};
-        data3.id = ((reader.readDynamic() ^ 59) >>> 0);
+        data3.id = ((reader.readDynamic() ^ 73) >>> 0);
         data2.push(data3);
     }
     data1.deleteUnits = data2;
