@@ -19,7 +19,7 @@ module.exports = function (type) {
     var FastBuffers = {
         reader: '\nvar Reader = function (buf, index) {\n\
     this.index = index || 0;\n\
-    this.buffer = new DataView(buf);\n\
+    this.buffer = buf;\n\
 }\n\
 Reader.prototype.readDynamic = function() {\n\
             var num = 0;\n\
