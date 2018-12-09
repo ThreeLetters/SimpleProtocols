@@ -1,1 +1,21 @@
-["int 0 100"]
+{
+    timestamp: "int uint32",
+    deleteUnits: [{
+        "id": "int dynamic"
+    }],
+    addUnits: [{
+        id: "int dynamic",
+        cx: "int -8000000 8000000",
+        cy: "int -8000000 8000000",
+        team: "int -10 200",
+        type: "int 0 200",
+        size: "int dynamic",
+        capturedAt: "int uint24"
+    }],
+    moveUnits: [{
+        id: "int dynamic",
+        size: "int dynamic",
+        x: "int -8000000 8000000",
+        y: "int -8000000 8000000",
+    }]
+}
