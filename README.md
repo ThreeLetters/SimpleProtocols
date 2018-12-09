@@ -1,8 +1,8 @@
 # SimpleProtocols
-Serialize your data in binary!
+Serialize your data in binary! Generates unique protocols resistant to decoding
 
 ## Purpose
-Generates code for binary serialisation. Like google's protocol buffers, but simpler, easier and more secure. This allows you to send data very quickly over networks or pipes.
+Takes a data structure in JavaScript and generates unique code to serialize and unserialize it. Has high amounts of security to prevent anyone from decoding the protocol. Each generation is unique, so if someone cracked your protocol, you can generate again using this tool. Very useful for security in web applications and IO games.
 
 ## Usage
 > node index.js
@@ -13,7 +13,13 @@ Generates code for binary serialisation. Like google's protocol buffers, but sim
 
 > require("simpleprotocols")
 
-Available on NPM.
+1. Do `npm install simpleprotocols`.
+2. Use it in your code!
+
+```js
+var SimpleProtocols = require("simpleprotocols");
+var output = SimpleProtocols(dataStruct,options);
+```
 
 ## Documentation
 
@@ -62,13 +68,16 @@ else: "anotherthing"
 ```
 
 ### Security Features
-There are some security features. Note that none of these features impact preformance except for encodeStrings.
+There are some security features to protect the protocols from being read.
 
 1. shuffleObjects - Shuffle order in objects. Default: true
 2. scrambleConditionals - Scramble conditional statements. Default: true
 3. scrambleNumbers - Scramble numbers. Default: true
 4. encodeStrings - Encode strings using rc4 encryption. Default: false
-5. pack - Pack output code using Dean Edward's packer (http://dean.edwards.name/packer/). Not a significant security feature. Default: false
+5. maskStrings - Masks strings so that they cannot be read easily. Default: true
+6. maskLength - Sets a mask length. Default: [4,6]
+7. pack - Pack output code using Dean Edward's packer (http://dean.edwards.name/packer/). Not a significant security feature. Default: false
 
 ## Note:
 The json files in this project are not actually json. This is to simplify its syntax. `eval()` is used to evaluate the files.
+
