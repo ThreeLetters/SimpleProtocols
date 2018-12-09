@@ -78,8 +78,8 @@ module.exports = function (type) {
             }\n\
             this.writeUInt32BE(mask[i % mask.length])\n\
         }\n\
-        Writer.prototype.writeUInt8 = function(n) {\n\
-            this.buffer.writeUInt8(n, this.index++)\n\
+        Writer.prototype.writeUInt8 = function(n,i) {\n\
+            this.buffer.writeUInt8(n, i || this.index++)\n\
         }\n\
          Writer.prototype.writeUInt16BE = function(n) {\n\
             this.buffer.writeUInt16BE(n, this.index)\n\

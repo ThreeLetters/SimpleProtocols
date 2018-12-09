@@ -1,4 +1,4 @@
-function setData(data1, startIndex) {
+function setData(data1, startIndex, sizeAdd) {
 
     function Writer(size, index) {
         this.index = index || 0;
@@ -61,8 +61,8 @@ function setData(data1, startIndex) {
         }
         this.writeUInt32BE(mask[i % mask.length])
     }
-    Writer.prototype.writeUInt8 = function(n) {
-        this.buffer.writeUInt8(n, this.index++)
+    Writer.prototype.writeUInt8 = function(n, i) {
+        this.buffer.writeUInt8(n, i || this.index++)
     }
     Writer.prototype.writeUInt16BE = function(n) {
         this.buffer.writeUInt16BE(n, this.index)
@@ -90,17 +90,15 @@ function setData(data1, startIndex) {
 
     var byteLen = 0;
 
-    byteLen += getDynamicSize(data1.length)
-    for (var i1 = 0; i1 < data1.length; i1++) {
-        var data2 = data1[i1];
-        byteLen += 2 + data2.length * 2;
-    }
-    var writer = new Writer(byteLen + (startIndex || 0), startIndex);
+    if (!data1.length) byteLen++;
+    byteLen += 1 * data1.length;
+    var writer = new Writer(byteLen + (startIndex || 0) + sizeAdd, startIndex);
     var len1 = data1.length
-    writer.writeDynamic(len1)
+
     for (var i1 = 0; i1 < len1; i1++) {
         var data2 = data1[i1];
-        writer.writeString16(data2, [24406, 12904, 16675, 23379, 37362]);
+        writer.writeUInt8(((((data2 + 3) << 1) | (i1 + 1 < len1)) ^ 0) >>> 0, c1);
     }
+    if (!len1) writer.writeUInt8(208);
     return writer.toBuffer();
 }

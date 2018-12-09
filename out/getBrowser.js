@@ -2,7 +2,7 @@ function getData(buf, startIndex) {
 
     var Reader = function(buf, index) {
         this.index = index || 0;
-        this.buffer = new DataView(buf);
+        this.buffer = buf;
     }
     Reader.prototype.readDynamic = function() {
         var num = 0;
@@ -73,10 +73,12 @@ function getData(buf, startIndex) {
 
     var reader = new Reader(buf, startIndex);
 
-    var len1 = reader.readDynamic();
+
     var data1 = [];
-    for (var i1 = 0; i1 < len1; i1++) {
-        data1.push(reader.readString16([24406, 12904, 16675, 23379, 37362]));
+    for (var a1 = 1; a1 & 1;) {
+        var b1 = reader.readUInt8();
+        if (b1 == 208) break;
+        data1.push((((a1 = b1 ^ 0) >> 1) >>> 0) - 3);
     }
     return data1;
 }

@@ -148,8 +148,8 @@ Writer.prototype.writeString32 = function (string, mask) {\n\
     }\n\
     this.writeUInt32BE(mask[i % mask.length])\n\
 }\n\
-Writer.prototype.writeUInt8 = function (n) {\n\
-    this.buffer.setUint8(this.index++,n)\n\
+Writer.prototype.writeUInt8 = function (n,i) {\n\
+    this.buffer.setUint8(i || this.index++,n)\n\
 }\n\
 Writer.prototype.writeUInt16BE = function (n) {\n\
     this.buffer.setUint16(this.index,n)\n\
